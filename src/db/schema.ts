@@ -1,4 +1,4 @@
-import { pgTable, text, integer, uuid, date } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, uuid, timestamp } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
   userId: uuid('id').primaryKey(),
@@ -7,8 +7,8 @@ export const users = pgTable('users', {
   email: text('email').unique(),
   provider: text('provider'),
   providerId: text('providerId').unique(),
-  createdAt: date('createdAt'),
-  updatedAt: date('updatedAt'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });
 
 export const securities = pgTable('securities', {
@@ -18,8 +18,8 @@ export const securities = pgTable('securities', {
   otp: integer('otp'),
   otpExpiry: integer('otpExpiry'),
   apiKey: text('apiKey').unique(),
-  createdAt: date('createdAt'),
-  updatedAt: date('updatedAt'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });
 
 export const tips = pgTable('tips', {
@@ -31,8 +31,8 @@ export const tips = pgTable('tips', {
   description: text('description'),
   walletAddress: text('walletAddress'),
   status: text('status'),
-  createdAt: date('createdAt'),
-  updatedAt: date('updatedAt'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });
 
 export const donations = pgTable('donations', {
@@ -44,6 +44,6 @@ export const donations = pgTable('donations', {
   description: text('description'),
   walletAddress: text('walletAddress'),
   status: text('status'),
-  createdAt: date('createdAt'),
-  updatedAt: date('updatedAt'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });

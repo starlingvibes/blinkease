@@ -1,5 +1,5 @@
 {
-  "id": "fb007e15-6ae6-4b1e-8123-7de6049dd0af",
+  "id": "c187dd78-6b66-47da-9242-34d782415fe4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -58,15 +58,17 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
         "updatedAt": {
           "name": "updatedAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -116,15 +118,17 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
         "updatedAt": {
           "name": "updatedAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -194,15 +198,17 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
         "updatedAt": {
           "name": "updatedAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -252,15 +258,17 @@
         },
         "createdAt": {
           "name": "createdAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
         "updatedAt": {
           "name": "updatedAt",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},

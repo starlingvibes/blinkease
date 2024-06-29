@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS "donations" (
 	"description" text,
 	"walletAddress" text,
 	"status" text,
-	"createdAt" date,
-	"updatedAt" date
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "securities" (
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS "securities" (
 	"otp" integer,
 	"otpExpiry" integer,
 	"apiKey" text,
-	"createdAt" date,
-	"updatedAt" date,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "securities_apiKey_unique" UNIQUE("apiKey")
 );
 --> statement-breakpoint
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS "tips" (
 	"description" text,
 	"walletAddress" text,
 	"status" text,
-	"createdAt" date,
-	"updatedAt" date
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"email" text,
 	"provider" text,
 	"providerId" text,
-	"createdAt" date,
-	"updatedAt" date,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email"),
 	CONSTRAINT "users_providerId_unique" UNIQUE("providerId")
 );

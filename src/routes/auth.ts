@@ -23,7 +23,7 @@ const insertSecurity = async (db: any, security: NewSecurity) => {
 
 // TODO: add Zod validations
 auth.post('/signup', async (c: any) => {
-  const { email, password } = await c.req.json();
+  const { firstName, lastName, email, password } = await c.req.json();
   const sql = neon(c.env.DATABASE_URL ?? '');
   const db = drizzle(sql);
 
@@ -35,7 +35,14 @@ auth.post('/signup', async (c: any) => {
   }
 
   const userId = v4();
-  const newUser: NewUser = { userId, email };
+  const newUser: NewUser = {
+    userId,
+    email,
+    firstName,
+    lastName,
+    provider: 'local',
+    providerId: email,
+  };
   await insertUser(db, newUser);
 
   const securityId = v4();
