@@ -2,22 +2,22 @@ import { Hono } from 'hono';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { users } from '../db/schema';
-import { tips } from '../db/schema';
+import { donations } from '../db/schema';
 import bcrypt from 'bcryptjs';
 import { decode, sign, verify } from 'hono/jwt';
 import { v4 } from 'uuid';
 
-const tip = new Hono();
+const donation = new Hono();
 
-type NewTip = typeof tips.$inferInsert;
+type NewDonation = typeof donations.$inferInsert;
 
-const insertTip = async (db: any, tip: NewTip) => {
-  const newTip = await db.insert(tips).values(tip);
-  return newTip;
+const insertDonation = async (db: any, donation: NewDonation) => {
+  const newDonation = await db.insert(donations).values(donation);
+  return newDonation;
 };
 
 // TODO: add Zod validations
-tip.post('/create', async (c: any) => {
+donation.post('/create', async (c: any) => {
   const { name, icon, title, description, walletAddress } = await c.req.json();
   const sql = neon(c.env.DATABASE_URL ?? '');
   const db = drizzle(sql);
@@ -43,12 +43,12 @@ tip.post('/create', async (c: any) => {
     return c.json({ status: false, message: 'Unauthorized' }, 401);
   }
 
-  const tipId = v4();
+  const donationId = v4();
   //   TODO: generate an actual friendlyId
   const friendlyId = v4();
-  const newTip: NewTip = {
+  const newDonation: NewDonation = {
     userId: user.userId,
-    tipId,
+    donationId,
     name,
     icon,
     title,
@@ -56,13 +56,13 @@ tip.post('/create', async (c: any) => {
     friendlyId,
     walletAddress,
   };
-  await insertTip(db, newTip);
+  await insertDonation(db, newDonation);
 
   return c.json({
     status: true,
-    message: 'Tiplink created successfully',
+    message: 'Donation link created successfully',
     data: null,
   });
 });
 
-export default tip;
+export default donation;

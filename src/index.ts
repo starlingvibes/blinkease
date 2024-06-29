@@ -17,6 +17,7 @@ import { cors } from 'hono/cors';
 import { Buffer } from 'node:buffer';
 import auth from './routes/auth';
 import tip from './routes/tip';
+import donation from './routes/donate';
 import { tips } from './db/schema';
 import { donations } from './db/schema';
 import { Bindings } from 'hono/types';
@@ -29,12 +30,6 @@ if (globalThis.Buffer === undefined) {
 
 // TODO: use a private RPC below
 const connection = new Connection('https://api.mainnet-beta.solana.com');
-// const connection = new Connection(
-//   'https://mainnet.helius-rpc.com/?api-key=6856095d-e3b1-48be-bc59-fcc5f0a7ec7a'
-// );
-// const connection = new Connection(
-//   'https://devnet.helius-rpc.com/?api-key=6856095d-e3b1-48be-bc59-fcc5f0a7ec7a'
-// );
 
 export type Env = {
   DATABASE_URL: string;
@@ -269,5 +264,6 @@ async function prepareDonateTransaction(
 
 app.route('/auth', auth);
 app.route('/tip', tip);
+app.route('/donation', donation);
 
 export default app;
