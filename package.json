@@ -3,15 +3,30 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "db:generate": "drizzle-kit generate --dialect=postgresql --schema=./src/db/schema.ts --out=./src/db/migrations",
+    "db:migrate": "tsx ./src/db/migrate.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.9.4",
     "@solana/actions": "^1.0.2",
     "@solana/web3.js": "^1.93.2",
-    "hono": "^4.4.8"
+    "bcryptjs": "^2.4.3",
+    "drizzle-kit": "^0.22.8",
+    "drizzle-orm": "^0.31.2",
+    "hono": "^4.4.8",
+    "jsonwebtoken": "^9.0.2",
+    "neon": "^2.0.0",
+    "nodemailer": "^6.9.14",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240620.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/nodemailer": "^6.4.15",
+    "tsx": "^4.16.0",
     "wrangler": "^3.57.2"
   }
 }

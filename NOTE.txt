@@ -1,0 +1,40 @@
+users {
+    userId,
+    firstName,
+    lastName,
+    email,
+    provider,
+    providerId
+}
+
+securities {
+    securityId,
+    userId,
+    password,
+    otp,
+    otpExpiry,
+    apiKey,
+}
+
+tips {
+    tipId,
+    userId,
+    icon,
+    title,
+    description,
+    walletAddress,
+    date,
+}
+
+donations {
+    donationId,
+    userId,
+    icon,
+    title,
+    description,
+    walletAddress,
+    date,
+}
+
+// add other providers 
+// add ability for users to set custom amounts
