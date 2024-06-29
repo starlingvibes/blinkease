@@ -1,18 +1,19 @@
 CREATE TABLE IF NOT EXISTS "donations" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"userId" uuid,
-	"name" text,
-	"icon" text,
-	"title" text,
-	"description" text,
-	"walletAddress" text,
-	"status" text,
+	"donationId" uuid PRIMARY KEY NOT NULL,
+	"userId" uuid NOT NULL,
+	"name" text NOT NULL,
+	"icon" text NOT NULL,
+	"title" text NOT NULL,
+	"description" text NOT NULL,
+	"friendlyId" text NOT NULL,
+	"walletAddress" text NOT NULL,
+	"status" text DEFAULT 'active',
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "securities" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"securityId" uuid PRIMARY KEY NOT NULL,
 	"userId" uuid,
 	"password" text,
 	"otp" integer,
@@ -24,25 +25,26 @@ CREATE TABLE IF NOT EXISTS "securities" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tips" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"userId" uuid,
-	"name" text,
-	"icon" text,
-	"title" text,
-	"description" text,
-	"walletAddress" text,
-	"status" text,
+	"tipId" uuid PRIMARY KEY NOT NULL,
+	"userId" uuid NOT NULL,
+	"name" text NOT NULL,
+	"icon" text NOT NULL,
+	"title" text NOT NULL,
+	"description" text NOT NULL,
+	"friendlyId" text NOT NULL,
+	"walletAddress" text NOT NULL,
+	"status" text DEFAULT 'active',
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"userId" uuid PRIMARY KEY NOT NULL,
 	"firstName" text,
 	"lastName" text,
 	"email" text,
-	"provider" text,
-	"providerId" text,
+	"provider" text NOT NULL,
+	"providerId" text NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email"),

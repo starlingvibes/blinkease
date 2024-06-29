@@ -1,18 +1,18 @@
 import { pgTable, text, integer, uuid, timestamp } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
-  userId: uuid('id').primaryKey(),
+  userId: uuid('userId').primaryKey(),
   firstName: text('firstName'),
   lastName: text('lastName'),
   email: text('email').unique(),
-  provider: text('provider'),
-  providerId: text('providerId').unique(),
+  provider: text('provider').notNull(),
+  providerId: text('providerId').unique().notNull(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });
 
 export const securities = pgTable('securities', {
-  securityId: uuid('id').primaryKey(),
+  securityId: uuid('securityId').primaryKey(),
   userId: uuid('userId'),
   password: text('password'),
   otp: integer('otp'),
@@ -23,27 +23,29 @@ export const securities = pgTable('securities', {
 });
 
 export const tips = pgTable('tips', {
-  tipId: uuid('id').primaryKey(),
-  userId: uuid('userId'),
-  name: text('name'),
-  icon: text('icon'),
-  title: text('title'),
-  description: text('description'),
-  walletAddress: text('walletAddress'),
-  status: text('status'),
+  tipId: uuid('tipId').primaryKey(),
+  userId: uuid('userId').notNull(),
+  name: text('name').notNull(),
+  icon: text('icon').notNull(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  friendlyId: text('friendlyId').notNull(),
+  walletAddress: text('walletAddress').notNull(),
+  status: text('status').default('active'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });
 
 export const donations = pgTable('donations', {
-  donationId: uuid('id').primaryKey(),
-  userId: uuid('userId'),
-  name: text('name'),
-  icon: text('icon'),
-  title: text('title'),
-  description: text('description'),
-  walletAddress: text('walletAddress'),
-  status: text('status'),
+  donationId: uuid('donationId').primaryKey(),
+  userId: uuid('userId').notNull(),
+  name: text('name').notNull(),
+  icon: text('icon').notNull(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  friendlyId: text('friendlyId').notNull(),
+  walletAddress: text('walletAddress').notNull(),
+  status: text('status').default('active'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 });
