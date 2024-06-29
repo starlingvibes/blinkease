@@ -16,6 +16,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { Buffer } from 'node:buffer';
 import auth from './routes/auth';
+import tip from './routes/tip';
 import { Bindings } from 'hono/types';
 
 if (globalThis.Buffer === undefined) {
@@ -34,6 +35,7 @@ const app = new Hono<{ Bindings: Env }>();
 app.use(cors());
 
 app.route('/auth', auth);
+app.route('/tip', tip);
 
 // const DONATION_DESTINATION_WALLET =
 //   'B39QpxQvLKPLMXuaiqVnZR7bAMuVLFRECdqFLEkTyrtW';
