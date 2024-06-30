@@ -23,16 +23,20 @@ import { donations } from './db/schema';
 import { Bindings } from 'hono/types';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
+import { config } from 'dotenv';
 
 if (globalThis.Buffer === undefined) {
   globalThis.Buffer = Buffer;
 }
 
-// TODO: use a private RPC below
-const connection = new Connection('https://api.mainnet-beta.solana.com');
+config({
+  path: '.dev.vars',
+});
 
 export type Env = {
   DATABASE_URL: string;
+  JWT_SECRET: string;
+  MAINNET_RPC_URL: string;
 };
 
 const app = new Hono<{ Bindings: Env }>();
@@ -127,6 +131,7 @@ app.post('/:tipId/tip/:amount', async (c) => {
 
   const parsedAmount = parseFloat(amount);
   const transaction = await prepareDonateTransaction(
+    c,
     new PublicKey(account),
     new PublicKey(tip.walletAddress),
     parsedAmount * LAMPORTS_PER_SOL
@@ -221,6 +226,7 @@ app.post('/:donationId/donate/:amount', async (c) => {
 
   const parsedAmount = parseFloat(amount);
   const transaction = await prepareDonateTransaction(
+    c,
     new PublicKey(account),
     new PublicKey(donation.walletAddress),
     parsedAmount * LAMPORTS_PER_SOL
@@ -232,9 +238,13 @@ app.post('/:donationId/donate/:amount', async (c) => {
 });
 
 export async function prepareTransaction(
+  c: any,
   instructions: TransactionInstruction[],
   payer: PublicKey
 ) {
+  const connection = new Connection(
+    c.env.MAINNET_RPC_URL ?? ('https://api.mainnet-beta.solana.com' as string)
+  );
   const blockhash = await connection
     .getLatestBlockhash({ commitment: 'max' })
     .then((res) => res.blockhash);
@@ -247,6 +257,7 @@ export async function prepareTransaction(
 }
 
 async function prepareDonateTransaction(
+  c: any,
   sender: PublicKey,
   recipient: PublicKey,
   lamports: number
@@ -259,7 +270,7 @@ async function prepareDonateTransaction(
       lamports: lamports,
     }),
   ];
-  return prepareTransaction(instructions, payer);
+  return prepareTransaction(c, instructions, payer);
 }
 
 app.route('/auth', auth);
